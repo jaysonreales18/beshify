@@ -2,30 +2,83 @@
 <html>
 <head>
   <title>Beshify</title>
+  <meta name="author" content="Jayson Reales">
+  <meta name="description" content="This website is inspired of one of the popular meme video in the Philippines.">
+
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
   <link rel="icon" href="https://em-content.zobj.net/thumbs/240/facebook/355/man-cartwheeling_1f938-200d-2642-fe0f.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no">
 
   <style>
+    a {
+      text-decoration: none
+    }
+    
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
     body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #F6F8FA;
+      font-family: 'Consolas', sans-serif;
+      background: #F6F8FA;
+      color: #1A1A1A;
       margin: 0;
       padding: 0;
+      transition: 0.3s ease;
+    }
+
+    .moon-icon {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
+
+    .sun-icon {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
+
+    button {
+      outline: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    body.dark-mode {
+      background: #1A1A1A;
+      color: #f5f5f5;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      gap: 30px;
+      padding: 50px 100px;
+    }
+
+    .social-links svg {
+      fill: #1A1A1A;
+    }
+
+    .social-links svg:hover {
+      transform: scale(1.1);
+      transition: 300ms ease-in;
+    }
+
+    body.dark-mode .social-links svg {
+      fill: #f5f5f5;
     }
     
     .container {
-      width: 80%;
+      width: 100%;
       margin: 0 auto;
-      padding-top: 50px;
       text-align: center;
     }
     
     h1 {
-      color: #1A1A1A;
       font-size: 50px;
       margin-bottom: 40px;
       letter-spacing: 5px;
@@ -40,7 +93,6 @@
     }
     
     label {
-      color: #1A1A1A;
       font-size: 20px;
     }
     
@@ -55,16 +107,44 @@
       border: 1px solid #B0B7BE;
       border-radius: 5px 0px 0px 5px;
       font-size: 16px;
-      color: #1A1A1A;
+      font-family: 'Consolas', sans-serif;
+      transition: border 0.3s ease;
+      background: #FFFFFF;
+    }
+
+    body.dark-mode input[type="text"] {
+      background: #353535;
+      border: #FFFFFF;
+      color: #FFFFFF;
     }
 
     #input-text:focus {
       outline: none;
       border: 2px solid #2563eb;
     }
+
+    .count {
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 400px;
+    }
+
+    p.icon {
+      background: #d5d5fb;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    p.icon:hover {
+      transform: scale(1.1);
+      transition: 300ms ease-in;
+    }
     
     .copy-button {
-      background-color: #2563eb;
+      background: #2563eb;
       border: none;
       color: #FFFFFF;
       font-size: 16px;
@@ -80,7 +160,7 @@
     }
     
     .copy-button:hover {
-      background-color: #2563eb;
+      background: #2563eb;
     }
     
     .copy-button i {
@@ -95,7 +175,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #1259f2a3;
+      background: #1259f2a3;
       z-index: 0;
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -113,7 +193,7 @@
       transform: translate(-50%, -50%) scale(0);
       width: 24px;
       height: 24px;
-      background-color: #ffffff;
+      background: #ffffff;
       border-radius: 50%;
       opacity: 0;
       transition: transform 0.3s ease, opacity 0.3s ease;
@@ -144,59 +224,163 @@
     
     .output-section {
       text-align: center;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Consolas', sans-serif;
     }
     
     h2 {
-      color: #1A1A1A;
+      
       font-size: 24px;
       margin-bottom: 10px;
     }
     
     #output-text {
-      color: #1A1A1A;
+      padding: 10px 20px;
+      /* background-color: #f1f5f9; */
+      width: 400px;
+      margin: 0 auto;
       font-size: 16px;
       white-space: pre-wrap;
       display: inline-block;
       text-align: left;
     }
-    footer {
+
+    body.dark-mode #output-text {
+      color: #1A1A1A;
+    }
+
+    .footer {
       position: fixed;
       bottom: 0;
+      left: 0;
       width: 100%;
-      background-color: #f9f9f9;
       padding: 20px 0;
       text-align: center;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Consolas', sans-serif;
     }
-    
-    .social-links {
-      margin-top: 10px;
+
+    .footer i {
+      margin-left: 5px;
     }
     
     /* Additional CSS for black social media icons */
     .social-links a {
       color: #000000; /* Black color */
     }
+    
+    .paper-underline {
+      display: inline-block;
+      background-color: #FDF5E6; /* Paper color */
+      padding: 5px 10px;
+      position: relative;
+    }
+    
+    .paper-underline::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #D2B48C; /* Underline color */
+    }
+
+    @media (max-width: 767px) {
+      body {
+        padding: 0 3rem;
+      }
+
+      h1 {
+        font-size: 40px;
+        margin-bottom: 40px;
+        letter-spacing: 5px;
+        font-family: 'Dancing Script', cursive;
+      }
+
+      .social-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+      }
+
+      #output-text {
+        padding: 0;
+      }
+    }
+
+    
+    @media (min-width: 768px) and (max-width: 1023px) {
+      body {
+        padding: 0 3rem;
+      }
+
+      h1 {
+        font-size: 40px;
+        margin-bottom: 40px;
+        letter-spacing: 5px;
+        font-family: 'Dancing Script', cursive;
+      }
+
+      .social-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+      }
+
+      #output-text {
+        padding: 0;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
+
+    <header>
+      
+      <div class="social-links">
+        <a href="https://www.facebook.com/jayzone.98" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path d="M15.4024 21V14.0344H17.7347L18.0838 11.3265H15.4024V9.59765C15.4024 8.81364 15.62 8.27934 16.7443 8.27934L18.1783 8.27867V5.85676C17.9302 5.82382 17.0791 5.75006 16.0888 5.75006C14.0213 5.75006 12.606 7.01198 12.606 9.32952V11.3265H10.2677V14.0344H12.606V21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H15.4024Z"></path></svg>
+        </a>
+        <a href="https://github.com/jaysonreales18" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"></path></svg>
+        </a>
+        
+        <img onclick="toggleDarkMode()" class="sun-icon" src="sun-behind-cloud.svg" alt="Sun Icon">
+        <!-- Add more social media links as needed -->
+      </div>
+
+    </header>
+
     <h1> 🤸 Beshify 🤸</h1>
     
     <div class="input-section">
       <div class="input-container">
-        <input type="text" id="input-text" placeholder="Type here..." oninput="addEmojis()">
+        <input type="text" id="input-text" placeholder="Start beshifying here🤸..." oninput="addEmojis()">
       </div>
       <button class="copy-button" onclick="copyOutputText()"><i class="fas fa-copy"></i></button>
     </div>
+
+    <div class="count">
+      <p class="icon" onclick="updateEmojiCount(' 🤸 ')"> 🤸 </p>
+      <p class="icon" onclick="updateEmojiCount(' 🤸  🤸')"> 🤸 🤸  </p>
+      <p class="icon" onclick="updateEmojiCount(' 🤸  🤸  🤸 ')"> 🤸 🤸  🤸  </p>
+    </div>
     
     <div class="output-section">
-      <p id="output-text"></p>
+      <p id="output-text" class="paper-underline"></p>
     </div>
-  </div>
 
+    
+    <div class="footer">
+      <p>🤸 Senpai © <span id="year"></span></p>
+    </div>
+    
+  </div>
+  <div class="particles"></div>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particlesjs@2.2.3/dist/particles.min.js"></script>
   <script>
     function copyOutputText() {
       var outputText = document.getElementById("output-text");
@@ -206,6 +390,7 @@
       window.getSelection().addRange(range);
       document.execCommand("copy");
       window.getSelection().removeAllRanges();
+      var selectedEmoji = ""; // Variable to store the selected emoji
       
       var copyButton = document.querySelector('.copy-button');
       copyButton.classList.add('copied');
@@ -213,35 +398,60 @@
         copyButton.classList.remove('copied');
       }, 1000);
       
-      Swal.fire({
-        icon: 'success',
-        title: 'Nakopya na Beshy!🤸',
-        showConfirmButton: false,
-        timer: 1500
-      });
+      Swal.fire(
+        'Na-kopya na beshy ko!🤸 ',
+        'Motivational rice🍚 para sayo beshy!🤸 ',
+        'success'
+      )
     }
-    
+
+    function updateEmojiCount(emoji) {
+      selectedEmoji = emoji;
+      addEmojis();
+    }
+
     function addEmojis() {
       var inputText = document.getElementById("input-text").value;
       var words = inputText.split(" ");
       var output = "";
-      
+
       for (var i = 0; i < words.length; i++) {
-        output += words[i] + " 🤸 ";
+        output += words[i] + " " + selectedEmoji + " ";
       }
-      
+
       document.getElementById("output-text").innerText = output.trim();
     }
+
+    function toggleDarkMode() {
+      var body = document.body;
+      body.classList.toggle('dark-mode');
+
+      var sunIcon = document.querySelector('.sun-icon');
+
+      // Change the img src based on the dark mode state
+      if (body.classList.contains('dark-mode')) {
+        sunIcon.style.opacity = '.7';
+        setTimeout(function () {
+          sunIcon.src = 'moon1.svg'; // Replace 'moon.svg' with the path to your moon image
+          sunIcon.alt = 'Moon Icon'; // Update the alt text accordingly
+          sunIcon.style.opacity = '1';
+        }, 300);
+      } else {
+        sunIcon.style.opacity = '.7';
+        setTimeout(function () {
+          sunIcon.src = 'sun-behind-cloud.svg'; // Replace 'sun-behind-cloud.svg' with the path to your sun image
+          sunIcon.alt = 'Sun Icon'; // Update the alt text accordingly
+          sunIcon.style.opacity = '1';
+        }, 300);
+      }
+    }
+    // Get the current year
+    var currentYear = new Date().getFullYear();
+
+    // Update the year element
+    var yearElement = document.getElementById('year');
+    yearElement.textContent = currentYear;
+
   </script>
-  <footer>
-    <div class="container">
-      <p>@jaysonreales</p>
-      <div class="social-links">
-        <a href="https://www.facebook.com/jayzone.98" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-        <a href="https://github.com/jaysonreales18" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-        <!-- Add more social media links as needed -->
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
