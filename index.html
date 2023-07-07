@@ -391,6 +391,17 @@
   <script>
     function copyOutputText() {
       var outputText = document.getElementById("output-text");
+
+      // Check if there is entered text
+      if (outputText.textContent.trim() === "") {
+        Swal.fire(
+          'Type muna bago copy beshy!🤸',
+          'Motivational rice🍚 para sayo!🤸 ',
+          'error'
+        );
+        return;
+      }
+
       var range = document.createRange();
       range.selectNode(outputText);
       window.getSelection().removeAllRanges();
@@ -407,7 +418,7 @@
       
       Swal.fire(
         'Na-kopya na beshy ko!🤸 ',
-        'Motivational rice🍚 para sayo beshy!🤸 ',
+        'Motivational rice🍚 para sayo!🤸 ',
         'success'
       )
     }
